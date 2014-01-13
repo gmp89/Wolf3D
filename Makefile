@@ -6,12 +6,12 @@
 #    By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/01/13 17:20:17 by gpetrov           #+#    #+#              #
-#    Updated: 2014/01/13 19:29:51 by gpetrov          ###   ########.fr        #
+#    Updated: 2014/01/13 22:42:59 by gpetrov          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME	= wolf3d
-FILES	= main.c get_data.c
+FILES	= main.c get_data.c ft_mlx.c
 SRCS	= $(addprefix src/, $(FILES))
 OBJS	= $(SRCS:src/%.c=.obj/%.o)
 INC		= -I includes -I libft/includes
