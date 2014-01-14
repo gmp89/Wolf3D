@@ -6,20 +6,48 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/13 22:42:07 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/01/14 14:09:37 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/01/14 16:52:12 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	ft_draw(t_data *d)
+void	ft_draw_sq(t_data *d)
 {
-	mlx_pixel_put(d->mlx, d->win, 200, 200, 0x00FF00);
+	d->wi->x = 0;
+	d->wi->y = 0;
+	while (d->wi->y < 400)
+	{
+		while (d->wi->x < 400)
+		{
+			ft_put_pixel_to_img(d, d->wi->x, d->wi->y, BLUE);
+			d->wi->x++;
+		}
+		d->wi->x = 0;
+		ft_put_pixel_to_img(d, d->wi->x, d->wi->y, BLUE);
+		d->wi->y++;
+	}
+}
+
+void	ft_put_pixel_to_img(t_data *d, int x, int y, int color)
+{
+	unsigned int	new_color;
+	int	i;
+
+	new_color = mlx_get_color_value(d->mlx, color);
+	i = x * 4 + y * d->sizeline;
+	d->data[i] = (new_color & 0xFF);
+	d->data[i + 1] = (new_color & 0xFF00) >> 8;
+	d->data[i + 2] = (new_color & 0xFF0000) >> 16;
+	/* d->data[(d->sizeline * y) + x * (d->bbp / 8)] = new_color; */
 }
 
 int		expose_hook(t_data *d)
 {
-	ft_draw(d);
+	/* ft_put_pixel_to_img(d); */
+
+	ft_draw_sq(d);
+	mlx_put_image_to_window(d->mlx, d->win, d->img, 0, 0);
 	return (0);
 }
 
@@ -51,8 +79,10 @@ void	ft_mlx(t_data *d)
 {
 	d->mlx = mlx_init();
 	d->win = mlx_new_window(d->mlx, SIZE_WINX, SIZE_WINY, "Wolf 3D"); /* Macro in header */
+	d->img = mlx_new_image(d->mlx, SIZE_WINX, SIZE_WINY);
+	d->data = mlx_get_data_addr(d->img, &d->bbp, &d->sizeline, &d->endian);
+	mlx_expose_hook(d->win, expose_hook, d);
 	mlx_key_hook(d->win, key_hook, d);
 	mlx_mouse_hook(d->win, mouse_hook, d);
-	mlx_expose_hook(d->win, expose_hook, d);
 	mlx_loop(d->mlx);
 }

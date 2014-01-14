@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/13 17:19:43 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/01/14 13:51:52 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/01/14 15:57:37 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define HEADER_H
 # define SIZE_WINX 720
 # define SIZE_WINY 720
+# define GREY 0x868686
+# define BLUE 0x0893CF
 
 # include <fcntl.h>
 # include <sys/types.h>
@@ -35,11 +37,23 @@ typedef struct		s_conf
 	int				start;
 }					t_conf;
 
+typedef struct		s_win
+{
+	int				x;
+	int				y;
+}					t_win;
+
 typedef struct		s_data
 {
 	void			*mlx;
 	void			*win;
+	void			*img;
+	char			*data;
+	int				bbp;
+	int				sizeline;
+	int				endian;
 	int				i;
+	t_win			*wi;
 }					t_data;
 
 int		***ft_get_data(char **av, t_conf *conf);
@@ -49,7 +63,8 @@ int		**ft_fill_tab(char *line, t_conf *conf);
 void	ft_print_map(int ***map);
 void	ft_mlx(t_data *d);
 int		expose_hook(t_data *d);
-void	ft_draw(t_data *d);
+void	ft_put_pixel_to_img(t_data *d, int x, int y, int color);
 int		key_hook(int keycode, t_data *d);
+void	ft_draw_sq(t_data *d);
 
 #endif
