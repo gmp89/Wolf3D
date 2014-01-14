@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/13 17:19:43 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/01/14 00:00:18 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/01/14 13:51:52 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void	ft_print_map(int ***map);
 void	ft_mlx(t_data *d);
 int		expose_hook(t_data *d);
 void	ft_draw(t_data *d);
+int		key_hook(int keycode, t_data *d);
 
 #endif

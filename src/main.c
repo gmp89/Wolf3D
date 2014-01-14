@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/13 14:40:10 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/01/13 23:28:51 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/01/14 13:48:14 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int		main(int argc, char **argv)
 		ft_putstr("usage: ./fdf [data_file]");
 		return (0);
 	}
-	ft_mlx(&d);
 	tab = ft_get_data(argv, &conf);
 	ft_print_map(tab);
+	ft_mlx(&d);
 	return (0);
 }
