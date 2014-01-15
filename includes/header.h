@@ -6,20 +6,31 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/13 17:19:43 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/01/14 22:05:15 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/01/15 21:40:20 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
 # define HEADER_H
+# define PI 3.141593
 # define SIZE_WINX 768
 # define SIZE_WINY 768
+# define WHITE 0xFFFFFF
 # define GREY 0x868686
 # define BLUE 0x0893CF
 # define DBLUE 0x437FA9
 # define YELLOW 0xE9D25E
 # define ORANGE 0xDB7A39
 # define GREEN 0x79C19E
+# define SIZE_BLOCK 64
+# define UP 65362
+# define DOWN 65364
+# define LEFT 65361
+# define RIGHT 65363
+# define FOV_X 320
+# define FOV_Y 200
+# define START_X 100
+# define START_Y 100
 
 # include <fcntl.h>
 # include <sys/types.h>
@@ -59,13 +70,29 @@ typedef struct		s_win
 	double			ray_dir_x;
 	double			ray_dir_y;
 	int				map_x;
-	int				map_y;
+ 	int				map_y;
 	double			dist_wall_x;
 	double			dist_wall_y;
 	double			dist2_wall_x;
 	double			dist2_wall_y;
 	double			wall_lenght;
 }					t_win;
+
+typedef struct		s_point
+{
+	int				x;
+	int				y;
+}					t_point;
+
+typedef struct		s_line
+{
+	int				x1;
+	int				y1;
+	int				x2;
+	int				y2;
+	t_point			a;
+	t_point			b;
+}					t_line;
 
 typedef struct		s_data
 {
@@ -78,6 +105,10 @@ typedef struct		s_data
 	int				sizeline;
 	int				endian;
 	int				i;
+	int				wall;
+	int				empty;
+	int				col;
+	int				li;
 	t_win			*wi;
 }					t_data;
 
@@ -92,5 +123,8 @@ void	ft_put_pixel_to_img(t_data *d, int x, int y, int color);
 int		key_hook(int keycode, t_data *d);
 void	ft_draw(t_data *d);
 void	ft_draw_background(t_data *d);
+void	ft_trace_line(t_data *d, t_point *a, t_point *b, int color);
+void	ft_swap_pos(t_point *a, t_point *b);
+void	ft_trace_block(t_data *d, int x, int y);
 
 #endif
