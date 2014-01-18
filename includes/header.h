@@ -135,7 +135,7 @@ void	draw_player(t_data *d);
 void	ft_raycast(t_data *d);
 void	search_wall(t_data *d, double alpha, t_hit *hit);
 void	ft_raycast(t_data *d);
-void	ft_print_wolf(t_data *d, t_hit *col, double dist_screen, int i);
+void	ft_print_wolf(t_data *d, int dist, double dist_screen, int i);
 void	move_on(t_data *d);
 void	turn_right(t_data *d);
 void	move_back(t_data *d);

@@ -183,7 +183,7 @@ void	ft_clean(t_data *d)
 	}
 }
 
-void	ft_print_wolf(t_data *d, t_hit *col, double dist_screen, int i)
+void	ft_print_wolf(t_data *d, int dist, double dist_screen, int i)
 {
 	double	height;
 	t_point	a;
@@ -192,13 +192,12 @@ void	ft_print_wolf(t_data *d, t_hit *col, double dist_screen, int i)
 	int		yb;
 
 	/*printf("eb_print_wolf:dist %f\n", col->dist);*/
-	height = ((dist_screen * (double)SIZE_BLOCK) / col->dist);
-	height = height / 10;
+	height = ((dist_screen * (double)SIZE_BLOCK) / dist);
 	/*printf("height : %d\n", height);*/
-	ya = ((SIZE_WINX / 2) - (int)(height / 2));
+	ya = ((SIZE_WINY / 2) - (int)(height / 2));
 	ya = (ya <= 0 ? 1 : ya);
-	yb = ((SIZE_WINX / 2) + (int)(height / 2));
-	yb = (yb >= SIZE_WINX ? SIZE_WINX : yb);
+	yb = ((SIZE_WINY / 2) + (int)(height / 2));
+	yb = (yb >= SIZE_WINY ? SIZE_WINY : yb);
 	/*printf("color = %f \t", (dist / MAXLEN));*/
 	/* eb_init_pos(i, ya, &a); */
 	a.x = i;
@@ -207,7 +206,8 @@ void	ft_print_wolf(t_data *d, t_hit *col, double dist_screen, int i)
 	b.x = i;
 	b.y = yb;
 	/*eb_trace_line(d, a, b, 0xFFFFFF * ((dist * 2) / MAXLEN));*/
-	if (col->face == 1)
+	ft_trace_line(d, &a, &b, ORANGE);
+	/*if (col->face == 1)
 	{
 		ft_trace_line(d, &a, &b, 0xFF0000);
 	}
@@ -226,7 +226,7 @@ void	ft_print_wolf(t_data *d, t_hit *col, double dist_screen, int i)
 	else
 	{
 		ft_trace_line(d, &a, &b, 0xFFFFFF);
-	}
+	}*/
 }
 
 /* void	search_wall(t_data *d, double alpha, t_hit *hit) */
@@ -322,7 +322,8 @@ void	ft_raycast(t_data *d)
 			dist += 1;
 			/*printf("(%d:%d) dist = %d\n", d->pos_tmp->x, d->pos_tmp->y, dist);*/
 		}
-		
+		dist = dist * cos(alpha - d->alpha);
+		ft_print_wolf(d, dist, dist_screen, i + (SIZE_WINX / 2));
 
 	}
 }
