@@ -107,54 +107,28 @@ int		key_hook(int keycode, t_data *d)
 		exit(0);
 	if (keycode == UP)
 	{
-		/*d->p->y += sin(d->alpha) * 10;
-		d->p->x += cos(d->alpha) * 10;*/
 		d->pos_tmp->y = d->p->y + sin(d->alpha) * 20;
 		d->pos_tmp->x = d->p->x + cos(d->alpha) * 20;
-		/*d->p->y -= 10;*/
 		if (ft_collision(d, d->pos_tmp) == 0)
 		{
 			d->p->y = d->pos_tmp->y;
 			d->p->x = d->pos_tmp->x;
-			/*d->p->y -= sin(d->alpha) * 10;
-			d->p->x -= cos(d->alpha) * 10;*/
-			/*d->p->y += 10;*/
 		}
 	}
 	if (keycode == DOWN)
 	{
-		/*d->p->y -= sin(d->alpha) * 10;
-		d->p->x -= cos(d->alpha) * 10;*/
 		d->pos_tmp->y = d->p->y - sin(d->alpha) * 20;
 		d->pos_tmp->x = d->p->x - cos(d->alpha) * 20;
-		/*d->p->y += 10;*/
 		if (ft_collision(d, d->pos_tmp) == 0)
 		{
 			d->p->y = d->pos_tmp->y;
 			d->p->x = d->pos_tmp->x;
-			/*d->p->y += sin(d->alpha) * 10;
-			d->p->x += cos(d->alpha) * 10;*/
-			/*d->p->y -= 10;*/
 		}
 	}
 	if (keycode == RIGHT)
-	{
-		d->alpha += 0.5;
-		/*d->p->x += 10;
-		if (ft_collision(d) == -1)
-		{
-			d->p->x -= 10;
-		}*/
-	}
+		d->alpha += 0.1;
 	if (keycode == LEFT)
-	{
-		d->alpha -= 0.5;
-		/*d->p->x -= 10;
-		if (ft_collision(d) == -1)
-		{
-			d->p->x += 10;
-		}*/
-	}
+		d->alpha -= 0.1;
 	expose_hook(d);
 	return (0);
 }

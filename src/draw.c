@@ -147,22 +147,20 @@ int		ft_collision(t_data *d, t_point *pos)
 	if (*d->map[((int)pos->y) / SIZE_BLOCK][((int)pos->x) / SIZE_BLOCK] == d->wall)
 		return (-1);
 	return (0);
-	/* if (*d->map[d->pos->y / SIZE_BLOCK][d->pos->x / SIZE_BLOCK] == d->wall) */
-	/* { */
-	/* 	/\*printf("d->pos(%d, %d)\n", d->pos->x, d->pos->y);*\/ */
-	/* 	if (d->pos->x == ((d->pos->x / SIZE_BLOCK) * SIZE_BLOCK)) */
-	/* 		return (1); */
-	/* 	else if (d->pos->x == (((d->pos->x / SIZE_BLOCK) + 1) * SIZE_BLOCK - 1)) */
-	/* 		return (2); */
-	/* 	else if (d->pos->y == ((d->pos->y / SIZE_BLOCK) * SIZE_BLOCK)) */
-	/* 		return (3); */
-	/* 	else if (d->pos->y == (((d->pos->y / SIZE_BLOCK) + 1) * SIZE_BLOCK - 1)) */
-	/* 		return (4); */
-	/* 	else */
-	/* 		return (5); */
-
-	/* } */
-	/* return (0); */
+	 /*if (*d->map[pos->y / SIZE_BLOCK][pos->x / SIZE_BLOCK] == d->wall) 
+	 {  
+	 	if (d->pos->x == ((pos->x / SIZE_BLOCK) * SIZE_BLOCK)) 
+	 		return (1); 
+	 	else if (pos->x == (((pos->x / SIZE_BLOCK) + 1) * SIZE_BLOCK - 1)) 
+	 		return (2); 
+	 	else if (pos->y == ((pos->y / SIZE_BLOCK) * SIZE_BLOCK)) 
+	 		return (3); 
+	 	else if (pos->y == (((pos->y / SIZE_BLOCK) + 1) * SIZE_BLOCK - 1)) 
+	 		return (4); 
+	 	else 
+	 		return (5); 
+	 } 
+	 return (0); */
 }
 
 void	ft_clean(t_data *d)
@@ -229,65 +227,6 @@ void	ft_print_wolf(t_data *d, int dist, double dist_screen, int i)
 	}*/
 }
 
-/* void	search_wall(t_data *d, double alpha, t_hit *hit) */
-/* { */
-/* 	int			dist; */
-/* 	double		x; */
-/* 	double		y; */
-
-/* 	dist = 0; */
-/* 	x = (double)d->pos->x; */
-/* 	y = (double)d->pos->y; */
-/* 	/\*printf("y,y = (%d, %d)(%f, %f)+", d->pos->x, d->pos->y, x, y);*\/ */
-/* 	while (!ft_collision(d)) */
-/* 	{ */
-/* 		ft_put_pixel_to_img(d, (d->pos->x * ((SIZE_WINX / d->p->y) / 5)) / SIZE_BLOCK, (d->pos->y * ((SIZE_WINX / d->p->y) / 5)) / SIZE_BLOCK, 0xFFFFFF); */
-/* 		d->pos->x = (int)x; */
-/* 		d->pos->y = (int)y; */
-/* 		x = x + (cos(alpha) * 1); */
-/* 		y = y + (sin(alpha) * 1); */
-/* 		dist += 1; */
-/* 		/\*printf("-");*\/ */
-/* 	} */
-/* 	hit->face = ft_collision(d); */
-/* 	hit->dist = (double)dist; */
-/* 	/\*printf("eb_search_wall:dist %f, dist : %d | retour col : %d\n", col->dist, dist, eb_collision(d, pos));*\/ */
-/* } */
-
-/* void	ft_raycast(t_data *d) */
-/* { */
-/* 	double		alpha; */
-/* 	int			i; */
-/* 	double		dist_screen; */
-/* 	t_hit		*hit; */
-
-/* 	dist_screen = (SIZE_WINX / 2) / tan((FOV * RAD) / 2); */
-/* 	d->pos = (t_point *)malloc(sizeof(t_point)); */
-/* 	hit = (t_hit *)malloc(sizeof(t_hit)); */
-/* 	/\* eb_init_pos(d->map->pos->x, d->map->pos->y, pos); *\/ */
-/* 	d->pos->x = d->p->x; */
-/* 	d->pos->y = d->p->y; */
-/* 	/\*alpha = d->map->alpha; */
-/* 	  alpha = alpha - (0.002181 * 240);*\/ */
-/* 	/\*printf("d->map->alpha : %f\n", d->map->alpha);*\/ */
-/* 	i = -(SIZE_WINX / 2) - 1; */
-/* 	while (++i <= (SIZE_WINX / 2)) */
-/* 	{ */
-/* 		alpha = d->alpha; */
-/* 		alpha += atan(i / dist_screen); */
-/* 		printf("%f\n", alpha); */
-/* 		search_wall(d, alpha, hit); */
-/* 		printf("vision:dist %f\n", hit->dist); */
-/* 		hit->dist = hit->dist * cos(alpha - d->alpha); */
-/* 		ft_print_wolf(d, hit, dist_screen, i + (SIZE_BLOCK / 2) - 1); */
-
-/* 		d->pos->x = d->p->x; */
-/* 		d->pos->y = d->p->y; */
-/* 	} */
-
-/* 	/\* free(d->pos); *\/ */
-/* } */
-
 void	ft_raycast(t_data *d)
 {
 	double		alpha;
@@ -313,7 +252,7 @@ void	ft_raycast(t_data *d)
 		while (ft_collision(d, d->pos_tmp) == 0)
 		{
 			/*usleep(10000);*/
-			ft_put_pixel_to_img(d, (x), (y), YELLOW);
+			/*ft_put_pixel_to_img(d, (x), (y), YELLOW);*/
 			/* usleep(1000000); */
 			d->pos_tmp->x = x;
 			d->pos_tmp->y = y;
@@ -337,10 +276,10 @@ void	ft_draw(t_data *d)
 	a.y = 0;
 	b.x = 100;
 	b.y = a.y;
-	/* ft_draw_background(d); */
 	ft_clean(d);
+	ft_draw_background(d); 
 	/* ft_raycast(d); */
-	draw_map(d);
-	draw_player(d);
+	/*draw_map(d);
+	draw_player(d);*/
 	ft_raycast(d);
 }

@@ -13,8 +13,8 @@
 #ifndef HEADER_H
 # define HEADER_H
 # define PI 3.141593
-# define SIZE_WINX 2100
-# define SIZE_WINY 1300
+# define SIZE_WINX 720
+# define SIZE_WINY 720
 # define WHITE 0xFFFFFF
 # define GREY 0x868686
 # define BLUE 0x0893CF
