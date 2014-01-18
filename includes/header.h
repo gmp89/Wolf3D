@@ -6,15 +6,15 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/13 17:19:43 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/01/15 21:40:20 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/01/18 18:25:15 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
 # define HEADER_H
 # define PI 3.141593
-# define SIZE_WINX 768
-# define SIZE_WINY 768
+# define SIZE_WINX 2100
+# define SIZE_WINY 1300
 # define WHITE 0xFFFFFF
 # define GREY 0x868686
 # define BLUE 0x0893CF
@@ -22,7 +22,7 @@
 # define YELLOW 0xE9D25E
 # define ORANGE 0xDB7A39
 # define GREEN 0x79C19E
-# define SIZE_BLOCK 64
+# define SIZE_BLOCK 100
 # define UP 65362
 # define DOWN 65364
 # define LEFT 65361
@@ -31,6 +31,11 @@
 # define FOV_Y 200
 # define START_X 100
 # define START_Y 100
+# define RAD 0.017453292519943
+# define FOV 60
+# define RM ((SIZE_WINX / d->p->y) / 5)
+
+#include <stdio.h>
 
 # include <fcntl.h>
 # include <sys/types.h>
@@ -58,24 +63,6 @@ typedef struct		s_win
 	int				y;
 	int				grid_x;
 	int				grid_y;
-	double			pos_x;
-	double			pos_y;
-	double			dir_x;
-	double			dir_y;
-	double			plane_x;
-	double			plane_y;
-	double			cam_x;
-	double			ray_pos_x;
-	double			ray_pos_y;
-	double			ray_dir_x;
-	double			ray_dir_y;
-	int				map_x;
- 	int				map_y;
-	double			dist_wall_x;
-	double			dist_wall_y;
-	double			dist2_wall_x;
-	double			dist2_wall_y;
-	double			wall_lenght;
 }					t_win;
 
 typedef struct		s_point
@@ -94,6 +81,12 @@ typedef struct		s_line
 	t_point			b;
 }					t_line;
 
+typedef struct		s_hit
+{
+	int				face;
+	double			dist;
+}					t_hit;
+
 typedef struct		s_data
 {
 	int				***map;
@@ -109,6 +102,14 @@ typedef struct		s_data
 	int				empty;
 	int				col;
 	int				li;
+	double			alpha;
+
+	int				width;
+	int				height;
+	t_point			*pos_tmp;
+	t_hit			*hit;
+	t_point			*pos;
+	t_point			*p;
 	t_win			*wi;
 }					t_data;
 
@@ -126,5 +127,18 @@ void	ft_draw_background(t_data *d);
 void	ft_trace_line(t_data *d, t_point *a, t_point *b, int color);
 void	ft_swap_pos(t_point *a, t_point *b);
 void	ft_trace_block(t_data *d, int x, int y);
+void	ft_clean(t_data *d);
+void	draw_map(t_data *d);
+int		ft_collision(t_data *d, t_point *pos);
+void	ft_raytrace(t_data *d);
+void	draw_player(t_data *d);
+void	ft_raycast(t_data *d);
+void	search_wall(t_data *d, double alpha, t_hit *hit);
+void	ft_raycast(t_data *d);
+void	ft_print_wolf(t_data *d, t_hit *col, double dist_screen, int i);
+void	move_on(t_data *d);
+void	turn_right(t_data *d);
+void	move_back(t_data *d);
+void	turn_left(t_data *d);
 
 #endif

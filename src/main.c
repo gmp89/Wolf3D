@@ -6,7 +6,7 @@
 /*   By: gpetrov <gpetrov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/13 14:40:10 by gpetrov           #+#    #+#             */
-/*   Updated: 2014/01/15 21:40:40 by gpetrov          ###   ########.fr       */
+/*   Updated: 2014/01/18 18:36:59 by gpetrov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,10 @@ int		main(int argc, char **argv)
 	d.col = conf.x;
 	d.li = conf.y;
 	d.empty = conf.empty;
+	d.p = (t_point *)malloc(sizeof(t_point));
+	d.p->x = 1040;
+	d.p->y = 1104;
+	d.alpha = 0;
 	ft_init_attr(&d);
 	ft_print_map(d.map);
 	ft_mlx(&d);
